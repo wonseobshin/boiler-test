@@ -7,33 +7,42 @@ class ChatBar extends Component {
         this.state = {
             key : this.props.CurrentKey + 1,
             type : "incomingMessage",
-            username : this.props.CurrentUser,
+            username : this.props.CurrentUser.name,
             content : ""
         }
+
+        this.onCompose = this.onCompose.bind(this);
+        this.onContent = this.onContent.bind(this);
+        this.onPost = this.onPost.bind(this);
     }
 
-    onCompose(e) {
-        this.setState(() => ({
-            content: ""
-        }));
+    onCompose() {
+        this.setState({ content: "" });
     }
 
     onContent(e) {
-        this.setState({content: e.target.value})
+        this.setState({
+            content: e.target.value
+        })
+
+        if(this.state.username === "" || this.state.username === undefined){
+            this.setState({ username: "Anonymous" })
+        }
     }
 
     onPost() {
-        this.props.onNewPost(this.state.content);
-        this.state.content = ""
+        this.props.onNewMessage(this.state);
+        this.setState({content : ""})
     }
 
     render(e) {
       return (
         <footer className="chatbar">
             <input className="chatbar-username" placeholder="Your Name (Optional)" />
-            <input className="chatbar-message" placeholder="Type a message and hit ENTER" />
+            <input onChange={this.onContent} className="chatbar-message" placeholder="Type a message and hit ENTER" />
+            <button onClick={ this.onPost }>POST</button>
         </footer>
       );
     }
-  }
-  export default ChatBar;
+}
+export default ChatBar;
