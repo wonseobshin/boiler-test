@@ -17,4 +17,4 @@ new WebpackDevServer(webpack(config), {
     }
 
     console.log('Running at localhost');
-  });
+});

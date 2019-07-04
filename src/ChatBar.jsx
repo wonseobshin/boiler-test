@@ -5,42 +5,46 @@ class ChatBar extends Component {
         super(props)
 
         this.state = {
-            key : this.props.CurrentKey + 1,
-            type : "incomingMessage",
-            username : this.props.CurrentUser.name,
+            // key : this.props.CurrentKey + 1,
+            // type : "incomingMessage",
+            username : "Anonymous",//this.props.CurrentUser.name,
             content : ""
         }
 
-        this.onCompose = this.onCompose.bind(this);
+        // this.onCompose = this.onCompose.bind(this);
         this.onContent = this.onContent.bind(this);
         this.onPost = this.onPost.bind(this);
+        this.onUsername = this.onUsername.bind(this);
     }
 
-    onCompose() {
-        this.setState({ content: "" });
-    }
+    // onCompose() {
+    //     this.setState({ content: "" });
+    // }
 
+    onUsername(e) {
+        
+            this.setState({username : e.target.value})
+        
+    }
     onContent(e) {
         this.setState({
             content: e.target.value
         })
-
-        if(this.state.username === "" || this.state.username === undefined){
-            this.setState({ username: "Anonymous" })
-        }
     }
 
-    onPost() {
+    onPost(e) {
+        
         this.props.onNewMessage(this.state);
         this.setState({content : ""})
+
     }
 
     render(e) {
       return (
         <footer className="chatbar">
-            <input className="chatbar-username" placeholder="Your Name (Optional)" />
-            <input onChange={this.onContent} className="chatbar-message" placeholder="Type a message and hit ENTER" />
-            <button onClick={ this.onPost }>POST</button>
+            <input onChange={this.onUsername} className="chatbar-username" placeholder="Your Name (Optional)" name="username"/>
+            <input onChange={this.onContent} value={this.state.content} className="chatbar-message" placeholder="Type a message and hit ENTER" />
+            <button onClick={ ()=>{this.onPost("username")} } target="username">POST</button>
         </footer>
       );
     }

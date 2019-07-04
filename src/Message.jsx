@@ -11,7 +11,7 @@ class Message extends Component {
 
     loadMessage (){ 
         return this.props.MessageData.map((data) => {
-            console.log("Rendering at messages: ", data)
+            // console.log("Rendering at messages: ", data)
             if(data.type === "incomingMessage"){
                 return (
                     <div key={data.key} className="message">
