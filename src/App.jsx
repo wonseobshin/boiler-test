@@ -11,30 +11,7 @@ class App extends Component {
     this.state = {
       currentUser: {name: "Anonymous"},
       numberOfClients: 0,
-      messages : [
-        { 
-          key:1,
-          type: "incomingMessage",
-          content: "I won't be impressed with technology until I can download food.",
-          username: "Anonymous"
-        },
-        {
-            key:2,
-          type: "incomingNotification",
-          content: "Anonymous changed their name to nomnom",
-        },
-        {
-            key:3,
-          type: "incomingMessage",
-          content: "I wouldn't want to download Kraft Dinner. I'd be scared of cheese packet loss.",
-          username: "Anonymous"
-        },
-        {
-            key:4,
-          type: "incomingMessage",
-          content: "...",
-          username: "nomnom"
-        }]
+      messages : []
     };
 
     this.onNewMessage = this.onNewMessage.bind(this);
@@ -116,7 +93,7 @@ class App extends Component {
           <span>{this.state.numberOfClients} users Online</span>
         </nav>
         <MessageList Messages={this.state.messages} />
-        <ChatBar CurrentUser={this.state.currentUser} CurrentKey={this.state.messages[this.state.messages.length-1].key} onNewMessage={this.onNewMessage}/>
+        <ChatBar CurrentUser={this.state.currentUser} onNewMessage={this.onNewMessage}/>
       </div>
     );
   }

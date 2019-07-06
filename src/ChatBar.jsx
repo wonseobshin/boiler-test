@@ -5,22 +5,16 @@ class ChatBar extends Component {
         super(props)
 
         this.state = {
-            // key : this.props.CurrentKey + 1,
             type : "",
-            username : "Anonymous",//this.props.CurrentUser.name,
+            username : "Anonymous",
             content : ""
         }
 
-        // this.onCompose = this.onCompose.bind(this);
         this.onContent = this.onContent.bind(this);
         this.onPost = this.onPost.bind(this);
         this.onUsername = this.onUsername.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
     }
-
-    // onCompose() {
-    //     this.setState({ content: "" });
-    // }
 
     onUsername(e) {
         this.setState({
@@ -56,15 +50,13 @@ class ChatBar extends Component {
             this.setState({username:e.target.value})
             this.props.onNewMessage(this.state);
         }
-        // this.setState({content : ""}) 
     }
 
     render(e) {
       return (
         <footer className="chatbar">
-            <input onChange={this.onUsername} onKeyUp={this.onKeyUp} className="chatbar-username" placeholder="Your Name (Optional)" name="username"/>
+            <input onChange={this.onUsername} className="chatbar-username" placeholder="Your Name (Optional)" name="username"/>
             <input onChange={this.onContent} onKeyUp={this.onKeyUp} value={this.state.content} className="chatbar-message" placeholder="Type a message and hit ENTER" />
-            {/* <button onClick={ ()=>{this.onPost()} } target="username">POST</button> */}
         </footer>
       );
     }

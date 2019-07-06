@@ -2,25 +2,8 @@ import React, { Component } from 'react';
 
 class Message extends Component {
     
-    // constructor(props){
-    //     super(props)
-
-    //     const messageData = props.MessageData
-    //     let prevName = messageData[messageData.length-2].username;
-    //     let newName = messageData[messageData.length-1].username;
-    //     console.log("names: ",prevName, newName);
-
-    // }
-    // constructor(props){
-    //     super(props);
-
-        
-    // }
     loadMessage (){ 
         return this.props.MessageData.map((data) => {
-            // console.log("Rendering at messages: ", data)
-            console.log("BREAKPOINT DATA ",data)
-
             if(data.type === "incomingMessage"){
                 return (
                     <div key={data.key} className="message">
@@ -38,10 +21,6 @@ class Message extends Component {
             return;
         })
     }
-
-    // componentDidMount() {
-    //     this.loadMessage()
-    // }
 
     render() {
         return (
