@@ -6,7 +6,7 @@ class ChatBar extends Component {
 
         this.state = {
             // key : this.props.CurrentKey + 1,
-            // type : "incomingMessage",
+            type : "",
             username : "Anonymous",//this.props.CurrentUser.name,
             content : ""
         }
@@ -15,6 +15,7 @@ class ChatBar extends Component {
         this.onContent = this.onContent.bind(this);
         this.onPost = this.onPost.bind(this);
         this.onUsername = this.onUsername.bind(this);
+        this.onKeyUp = this.onKeyUp.bind(this);
     }
 
     // onCompose() {
@@ -22,29 +23,48 @@ class ChatBar extends Component {
     // }
 
     onUsername(e) {
-        
-            this.setState({username : e.target.value})
-        
+        this.setState({
+            username : e.target.value,
+            type: "postNotification"
+        })
     }
     onContent(e) {
         this.setState({
-            content: e.target.value
+            content: e.target.value,
+            type: "postMessage"
         })
     }
 
-    onPost(e) {
-        
-        this.props.onNewMessage(this.state);
-        this.setState({content : ""})
+    onKeyUp(e){
+        if (e.keyCode === 13) {
+            this.onPost(e);
+            e.target.value = ''            
+        }
+    }
 
+    onPost(e) {
+        if(this.state.type === "postMessage"){
+            if(this.state.content !== ''){
+                this.props.onNewMessage(this.state);
+                this.setState({content: ''})
+            }
+            return;
+        } else {
+            this.setState({
+                prevName : this.state.username
+            })
+            this.setState({username:e.target.value})
+            this.props.onNewMessage(this.state);
+        }
+        // this.setState({content : ""}) 
     }
 
     render(e) {
       return (
         <footer className="chatbar">
-            <input onChange={this.onUsername} className="chatbar-username" placeholder="Your Name (Optional)" name="username"/>
-            <input onChange={this.onContent} value={this.state.content} className="chatbar-message" placeholder="Type a message and hit ENTER" />
-            <button onClick={ ()=>{this.onPost("username")} } target="username">POST</button>
+            <input onChange={this.onUsername} onKeyUp={this.onKeyUp} className="chatbar-username" placeholder="Your Name (Optional)" name="username"/>
+            <input onChange={this.onContent} onKeyUp={this.onKeyUp} value={this.state.content} className="chatbar-message" placeholder="Type a message and hit ENTER" />
+            {/* <button onClick={ ()=>{this.onPost()} } target="username">POST</button> */}
         </footer>
       );
     }
