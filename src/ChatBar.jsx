@@ -37,19 +37,22 @@ class ChatBar extends Component {
     }
 
     onPost(e) {
-        if(this.state.type === "postMessage"){
+        // if(this.state.type === "postMessage"){
+            this.setState({
+                prevName : this.state.username
+            })
             if(this.state.content !== ''){
                 this.props.onNewMessage(this.state);
                 this.setState({content: ''})
             }
-            return;
-        } else {
-            this.setState({
-                prevName : this.state.username
-            })
-            this.setState({username:e.target.value})
-            this.props.onNewMessage(this.state);
-        }
+            // return;
+        // } else {
+            // this.setState({
+            //     prevName : this.state.username
+            // })
+            // this.setState({username:e.target.value})
+            // this.props.onNewMessage(this.state);
+        // }
     }
 
     render(e) {

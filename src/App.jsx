@@ -72,16 +72,25 @@ class App extends Component {
   onIncomingClientInfo(content){
     this.setState({numberOfClients: content.clientSize})
   }
+
   onNewMessage(content) {
-    if(content.type === "postMessage"){
+    console.log("contetnt for notification",content)
+
+    if(content.prevName !== undefined && content.prevName !== content.username){
+      content.type = "postNotification"
+      content.prevName = this.state.currentUser.name
+      socket.send(JSON.stringify(content))
+    }
+
+    // if(content.type === "postMessage"){
       if(content.username === "" || content.username === undefined || typeof content.username !== 'string'){
         content.username = "Anonymous"
       }
-    } else if (content.type === "postNotification"){
-      content.prevName = this.state.currentUser.name
-      console.log("Current Prev Nmae:",content.prevName)
-    }
-    
+    // } else if (content.type === "postNotification"){
+    //   content.prevName = this.state.currentUser.name
+    //   console.log("Current Prev Nmae:",content.prevName)
+    // }
+    content.type = "postMessage"
     socket.send(JSON.stringify(content))
   }
 
