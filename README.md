@@ -27,3 +27,6 @@ open http://localhost:3000
 	See how many users are connected
 	Change user display name
 
+## Screenshots
+
+!["Screenshot of chattyApp!"](https://github.com/wonseobshin/boiler-test/blob/master/docs/Capture.JPG)
